@@ -1,0 +1,64 @@
+{
+    "welcome": "Bienvenue",
+    "logo": "Mon école",
+    "userRole": {
+        "AGENT SAISIE": "Agent de saisie",
+        "UTILISATEUR": "Utilisateur",
+        "ADMIN": "Admin",
+        "SUPER ADMIN": "Super admin",
+        "NON ATTRIBUÉ": "Non attribué"
+    },
+    "navBar": {
+        "home": "Principale",
+        "chat": "Chat",
+        "user": {
+            "title": "Compte",
+            "profil": "Profile",
+            "login": "Se connecter",
+            "logout": "Se déconnecter"
+        }
+    },
+    "theme": {
+        "dark": "Sombre",
+        "light": "Clair",
+        "auto": "Automatique"
+    },
+    "sideBar": {
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres",
+        "users": "Utilisateurs",
+        "products": "Produits"
+    },
+    "pages": {
+        "dashboard": {
+            "title": "Tableau de bord",
+            "users": "Utilisateurs"
+        },
+        "home": {
+            "title": "Principale"
+        },
+        "users": {
+            "title": "Utilisateurs"
+        },
+        "products": {
+            "title": "Produits"
+        },
+        "login": {
+            "title": "Se connecter",
+            "message1": "Connectez-vous à votre compte",
+            "successMessage": "Connecté avec succès",
+            "fields": {
+                "email": "Adresse e-mail",
+                "password": "Mot de passe"
+            }
+        },
+        "register": {
+            "title": "Créer un compte",
+            "message1": "Inscrivez-vous pour créer un nouveau compte",
+            "successMessage": "Compte créé avec succès"
+        },
+        "logout": {
+            "successMessage": "Déconnecté avec succès"
+        }
+    }
+}

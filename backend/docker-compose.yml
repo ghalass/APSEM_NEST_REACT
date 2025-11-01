@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    container_name: apsem_postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: apsem_db
+      POSTGRES_USER: apsem_user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432" # 🔹 Ici 5434 est le port sur ton PC, 5432 reste le port interne du conteneur
+    volumes:
+      - apsem_postgres_db:/var/lib/postgresql/data
+
+volumes:
+  apsem_postgres_db:

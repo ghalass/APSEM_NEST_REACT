@@ -1,0 +1,67 @@
+{
+    "welcome": "مرحباً",
+    "logo": "مدرستي",
+    "navBar": {
+        "home": "الرئيسية",
+        "chat": "محادثة",
+        "user": {
+            "title": "الحساب",
+            "profil": "الملف الشخصي",
+            "login": "تسجيل الدخول",
+            "logout": "تسجيل الخروج"
+        }
+    },
+    "userRole": {
+        "AGENT SAISIE": "وكيل إدخال البيانات",
+        "UTILISATEUR": "مستخدم",
+        "ADMIN": "مسؤول",
+        "SUPER ADMIN": "مشرف عام",
+        "NON ATTRIBUÉ": "غير محدد"
+    },
+    "theme": {
+        "dark": "داكن",
+        "light": "فاتح",
+        "auto": "تلقائي"
+    },
+    "sideBar": {
+        "dashboard": "لوحة التحكم",
+        "settings": "الإعدادات",
+        "users": "المستخدمين",
+        "products": "المنتجات"
+    },
+    "pages": {
+        "dashboard": {
+            "title": "لوحة التحكم",
+            "users": "مستخدم"
+        },
+        "home": {
+            "title": "الرئيسية"
+        },
+        "users": {
+            "title": "المستخدمين"
+        },
+        "products": {
+            "title": "المنتجات"
+        },
+        "profile": {
+            "title": "الملف الشخصي"
+        },
+        "login": {
+            "title": "تسجيل الدخول",
+            "message1": "قم بتسجيل الدخول إلى حسابك",
+            "successMessage": "تم تسجيل الدخول بنجاح",
+            "fields": {
+                "email": "البريد الإلكتروني",
+                "password": "كلمة المرور"
+            }
+        },
+        "register": {
+            "title": "إنشاء حساب",
+            "message1": "قم بالتسجيل لإنشاء حساب جديد",
+            "successMessage": "تم إنشاء الحساب بنجاح"
+        },
+        "logout": {
+            "successMessage": "تم تسجيل الخروج بنجاح"
+        }
+    }
+}

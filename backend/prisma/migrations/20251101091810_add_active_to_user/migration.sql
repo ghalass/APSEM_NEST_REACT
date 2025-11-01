@@ -1,0 +1,6 @@
+-- AlterEnum
+ALTER TYPE "Role" ADD VALUE 'AGENT_SAISIE';
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "active" BOOLEAN NOT NULL DEFAULT true,
+ALTER COLUMN "created_at" DROP NOT NULL;
