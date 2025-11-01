@@ -44,7 +44,9 @@ export class UserService {
     });
 
     if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
+      throw new NotFoundException(
+        `Utilisateur avec l'identifiant ${id} introuvable`,
+      );
     }
 
     return user;
@@ -54,7 +56,9 @@ export class UserService {
     // Vérifier si l'utilisateur existe
     const existingUser = await this.prisma.user.findUnique({ where: { id } });
     if (!existingUser) {
-      throw new NotFoundException(`User with id ${id} not found`);
+      throw new NotFoundException(
+        `Utilisateur avec l'identifiant ${id} introuvable`,
+      );
     }
 
     // Vérifier si l'email est déjà utilisé par un autre utilisateur

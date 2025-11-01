@@ -87,10 +87,12 @@ const UserDetailsPage = () => {
   }
 
   if (isError || !user) {
+    console.log(error?.response?.data?.message)
+
     return (
       <CContainer className="py-5">
         <CAlert color="danger" className="text-center">
-          {error?.message || 'Utilisateur non trouvé'}
+          {error?.response?.data?.message || 'Utilisateur non trouvé'}
         </CAlert>
         <div className="text-center">
           <CButton color="secondary" onClick={() => navigate(-1)}>
