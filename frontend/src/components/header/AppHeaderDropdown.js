@@ -21,6 +21,7 @@ import { useAuthContext } from '../../context/AuthContext'
 import { useTranslation } from 'react-i18next'
 
 const AppHeaderDropdown = () => {
+  const { user } = useAuthContext()
   const logoutMutation = useLogoutMutation()
   const navigate = useNavigate()
   const { dispatch } = useAuthContext()
@@ -53,7 +54,13 @@ const AppHeaderDropdown = () => {
         <CDropdownHeader className="bg-body-secondary fw-semibold my-2">
           {t('navBar.user.title')}
         </CDropdownHeader>
-        <CDropdownItem href="#/profile">
+        {/* <CDropdownItem href="#/profile">
+          <CIcon icon={cilUser} className="me-2" />
+          {t('navBar.user.profil')}
+        </CDropdownItem> */}
+
+        {/*  */}
+        <CDropdownItem href={`#/users/${user?.id}`}>
           <CIcon icon={cilUser} className="me-2" />
           {t('navBar.user.profil')}
         </CDropdownItem>

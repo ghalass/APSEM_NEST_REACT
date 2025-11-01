@@ -31,6 +31,7 @@ import {
   useUserQuery,
 } from '../../features/users/users.queries'
 import { USER_TYPE } from '../../utils/types'
+import { useAuthContext } from '../../context/AuthContext'
 
 // ------------------------------
 // 🔹 Validation Formulaire
@@ -53,6 +54,9 @@ const UserDetailsPage = () => {
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [serverErrors, setServerErrors] = useState(null)
+
+  //
+  const { user: connectedUser } = useAuthContext()
 
   // 🔄 GET USER via useUserQuery
   const { data: user, isLoading, isError, error } = useUserQuery(id)
@@ -109,7 +113,10 @@ const UserDetailsPage = () => {
         <CCol md={8}>
           <CCard className="shadow-sm border-0">
             <CCardHeader className="bg-primary text-white d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Détails de l’utilisateur</h5>
+              <h5 className="mb-0">
+                Détails de l’utilisateur{' '}
+                {connectedUser?.id === user?.id && <CBadge color="success">Vous</CBadge>}
+              </h5>
               <div className="d-flex gap-2">
                 <CButton color="light" size="sm" onClick={() => navigate(-1)}>
                   Retour
