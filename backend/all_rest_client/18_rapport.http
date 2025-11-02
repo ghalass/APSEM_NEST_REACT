@@ -1,0 +1,114 @@
+@baseUrl =http://localhost:3000
+@endpoint=rapport
+@api={{baseUrl}}/{{endpoint}}
+
+### RJE
+POST {{api}}/rje
+Content-Type: application/json
+
+{
+    "du":"2025-11-02"
+}
+
+### unite-physique
+POST {{api}}/unite-physique
+Content-Type: application/json
+
+{
+    "du":"2025-11-02"
+}
+
+### etat-mensuel
+POST {{api}}/etat-mensuel
+Content-Type: application/json
+
+{
+    "du":"2025-11-02"
+}
+
+### indispo-parc
+POST {{api}}/indispo-parc
+Content-Type: application/json
+
+{
+    "du":"2025-11-02"
+}
+
+### heures-chassis
+POST {{api}}/heures-chassis
+Content-Type: application/json
+
+{
+    "du":"2025-11-02"
+}
+
+### spec-lubrifiant
+POST {{api}}/spec-lubrifiant
+Content-Type: application/json
+
+{
+    "year":2025,
+    "typelubrifiantId":"bb2bb1d6-aa96-4030-81f5-aeb50841e798"
+}
+
+### pareto-indispo-parc
+POST {{api}}/pareto-indispo-parc
+Content-Type: application/json
+
+{
+    "date":"2025-11-02",
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401"
+}
+
+### pareto-mtbf-parc
+POST {{api}}/pareto-mtbf-parc
+Content-Type: application/json
+
+{
+    "date":"2025-11-02",
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401"
+}
+
+### analyse-spc-period-parc-type-consomm
+POST {{api}}/analyse-spc-period-parc-type-consomm
+Content-Type: application/json
+
+{
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "dateDu":"2025-11-01",
+    "dateAu":"2025-11-02",
+    "typelubrifiantId":"bb2bb1d6-aa96-4030-81f5-aeb50841e798"
+}
+
+### indispo-parc-periode
+POST {{api}}/indispo-parc-periode
+Content-Type: application/json
+
+{
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "dateDu":"2025-11-01",
+    "dateAu":"2025-11-02"
+}
+
+### indispo-engins-periode
+POST {{api}}/indispo-engins-periode
+Content-Type: application/json
+
+{
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "dateDu":"2025-11-01",
+    "dateAu":"2025-11-02"
+}
+
+### performances-engins-periode
+POST {{api}}/performances-engins-periode
+Content-Type: application/json
+
+{
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "dateDu":"2025-11-01",
+    "dateAu":"2025-11-02"
+}
+
+
+

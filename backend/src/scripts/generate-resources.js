@@ -17,6 +17,7 @@ const resources = [
   'lubrifiant',
   'saisielubrifiant',
   'objectif',
+  'rapport',
 ];
 
 resources.forEach((r) => {
