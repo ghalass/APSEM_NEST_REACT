@@ -16,8 +16,8 @@ export class TypepanneParcController {
   constructor(private readonly typepanneParcService: TypepanneParcService) {}
 
   @Post()
-  create(@Body() createTypepanneParcDto: CreateTypepanneParcDto) {
-    return this.typepanneParcService.create(createTypepanneParcDto);
+  create(@Body() dto: CreateTypepanneParcDto) {
+    return this.typepanneParcService.create(dto);
   }
 
   @Get()
@@ -25,21 +25,29 @@ export class TypepanneParcController {
     return this.typepanneParcService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.typepanneParcService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateTypepanneParcDto: UpdateTypepanneParcDto,
+  // ⚠️ Route N:N doit passer les deux IDs
+  @Get(':parcId/:typepanneId')
+  findOne(
+    @Param('parcId') parcId: string,
+    @Param('typepanneId') typepanneId: string,
   ) {
-    return this.typepanneParcService.update(id, updateTypepanneParcDto);
+    return this.typepanneParcService.findOne(parcId, typepanneId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.typepanneParcService.remove(id);
+  @Patch(':parcId/:typepanneId')
+  update(
+    @Param('parcId') parcId: string,
+    @Param('typepanneId') typepanneId: string,
+    @Body() dto: UpdateTypepanneParcDto,
+  ) {
+    return this.typepanneParcService.update(parcId, typepanneId, dto);
+  }
+
+  @Delete(':parcId/:typepanneId')
+  remove(
+    @Param('parcId') parcId: string,
+    @Param('typepanneId') typepanneId: string,
+  ) {
+    return this.typepanneParcService.remove(parcId, typepanneId);
   }
 }

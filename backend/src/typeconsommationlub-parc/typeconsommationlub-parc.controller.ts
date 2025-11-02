@@ -17,38 +17,38 @@ export class TypeconsommationlubParcController {
     private readonly typeconsommationlubParcService: TypeconsommationlubParcService,
   ) {}
 
-  @Post()
-  create(
-    @Body() createTypeconsommationlubParcDto: CreateTypeconsommationlubParcDto,
+  @Get(':parcId/:typeconsommationlubId')
+  findOne(
+    @Param('parcId') parcId: string,
+    @Param('typeconsommationlubId') typeconsommationlubId: string,
   ) {
-    return this.typeconsommationlubParcService.create(
-      createTypeconsommationlubParcDto,
+    return this.typeconsommationlubParcService.findOne(
+      parcId,
+      typeconsommationlubId,
     );
   }
 
-  @Get()
-  findAll() {
-    return this.typeconsommationlubParcService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.typeconsommationlubParcService.findOne(id);
-  }
-
-  @Patch(':id')
+  @Patch(':parcId/:typeconsommationlubId')
   update(
-    @Param('id') id: string,
-    @Body() updateTypeconsommationlubParcDto: UpdateTypeconsommationlubParcDto,
+    @Param('parcId') parcId: string,
+    @Param('typeconsommationlubId') typeconsommationlubId: string,
+    @Body() dto: UpdateTypeconsommationlubParcDto,
   ) {
     return this.typeconsommationlubParcService.update(
-      id,
-      updateTypeconsommationlubParcDto,
+      parcId,
+      typeconsommationlubId,
+      dto,
     );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.typeconsommationlubParcService.remove(id);
+  @Delete(':parcId/:typeconsommationlubId')
+  remove(
+    @Param('parcId') parcId: string,
+    @Param('typeconsommationlubId') typeconsommationlubId: string,
+  ) {
+    return this.typeconsommationlubParcService.remove(
+      parcId,
+      typeconsommationlubId,
+    );
   }
 }

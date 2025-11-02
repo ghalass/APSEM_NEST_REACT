@@ -15,31 +15,28 @@ import { UpdateLubrifiantParcDto } from './dto/update-lubrifiant-parc.dto';
 export class LubrifiantParcController {
   constructor(private readonly lubrifiantParcService: LubrifiantParcService) {}
 
-  @Post()
-  create(@Body() createLubrifiantParcDto: CreateLubrifiantParcDto) {
-    return this.lubrifiantParcService.create(createLubrifiantParcDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.lubrifiantParcService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lubrifiantParcService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateLubrifiantParcDto: UpdateLubrifiantParcDto,
+  @Get(':parcId/:lubrifiantId')
+  findOne(
+    @Param('parcId') parcId: string,
+    @Param('lubrifiantId') lubrifiantId: string,
   ) {
-    return this.lubrifiantParcService.update(id, updateLubrifiantParcDto);
+    return this.lubrifiantParcService.findOne(parcId, lubrifiantId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.lubrifiantParcService.remove(id);
+  @Patch(':parcId/:lubrifiantId')
+  update(
+    @Param('parcId') parcId: string,
+    @Param('lubrifiantId') lubrifiantId: string,
+    @Body() dto: UpdateLubrifiantParcDto,
+  ) {
+    return this.lubrifiantParcService.update(parcId, lubrifiantId, dto);
+  }
+
+  @Delete(':parcId/:lubrifiantId')
+  remove(
+    @Param('parcId') parcId: string,
+    @Param('lubrifiantId') lubrifiantId: string,
+  ) {
+    return this.lubrifiantParcService.remove(parcId, lubrifiantId);
   }
 }
