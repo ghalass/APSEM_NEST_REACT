@@ -7,8 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ========================
+// 👤 Utilisateur
+// ========================
 model User {
-  id        String    @id @default(uuid())
+  id        String    @id @default(uuid()) // UUID pour une meilleure portabilité
   firstName String    @map("first_name")
   lastName  String    @map("last_name")
   email     String    @unique
@@ -23,4 +26,226 @@ enum Role {
   ADMIN
   USER
   AGENT_SAISIE
+}
+
+// ========================
+// 🏗️ Site
+// ========================
+model Site {
+  id   String @id @default(uuid())
+  name String @unique
+
+  // Relations
+  engins    Engin[]
+  Saisiehrm Saisiehrm[]
+  Objectif  Objectif[]
+}
+
+// ========================
+// 🅿️ Type de parc
+// ========================
+model Typeparc {
+  id   String @id @default(uuid())
+  name String @unique
+
+  // Relations
+  parcs Parc[]
+}
+
+// ========================
+// 🚜 Parc
+// ========================
+model Parc {
+  id                   String                    @id @default(uuid())
+  name                 String                    @unique
+  typeparcId           String
+  engins               Engin[]
+  typesConsommationLub TypeconsommationlubParc[]
+  typepanneParc        TypepanneParc[]
+  lubrifiantParc       LubrifiantParc[]
+  Objectif             Objectif[]
+
+  Typeparc Typeparc @relation(fields: [typeparcId], references: [id], onDelete: Restrict)
+}
+
+// ========================
+// 🛢️ Type consommation lubrifiant
+// ========================
+model Typeconsommationlub {
+  id               String                    @id @default(uuid())
+  name             String                    @unique
+  parcs            TypeconsommationlubParc[]
+  Saisielubrifiant Saisielubrifiant[]
+}
+
+// 🔗 Relation N:N Parc <-> Typeconsommationlub
+model TypeconsommationlubParc {
+  parcId                String              @map("parc_id")
+  typeconsommationlubId String              @map("typeconsommationlub_id")
+  parc                  Parc                @relation(fields: [parcId], references: [id], onDelete: Restrict)
+  typeconsommationlub   Typeconsommationlub @relation(fields: [typeconsommationlubId], references: [id], onDelete: Restrict)
+
+  @@id([parcId, typeconsommationlubId])
+  @@map("typeconsommationlub_parc")
+}
+
+// ========================
+// 🛢️ Lubrifiant <-> Parc
+// ========================
+model LubrifiantParc {
+  parcId       String     @map("parc_id")
+  lubrifiantId String     @map("lubrifiant_id")
+  parc         Parc       @relation(fields: [parcId], references: [id], onDelete: Restrict)
+  lubrifiant   Lubrifiant @relation(fields: [lubrifiantId], references: [id], onDelete: Restrict)
+
+  @@id([parcId, lubrifiantId])
+  @@map("lubrifiant_parc")
+}
+
+// ========================
+// 🚜 Engin
+// ========================
+model Engin {
+  id                  String  @id @default(uuid())
+  name                String  @unique
+  active              Boolean @default(true)
+  parcId              String
+  siteId              String
+  initialHeureChassis Float?  @default(0)
+
+  Parc      Parc        @relation(fields: [parcId], references: [id], onDelete: Restrict)
+  Site      Site        @relation(fields: [siteId], references: [id], onDelete: Restrict)
+  Saisiehrm Saisiehrm[]
+  Saisiehim Saisiehim[]
+}
+
+// ========================
+// ⚙️ Type de panne
+// ========================
+model Typepanne {
+  id   String @id @default(uuid())
+  name String @unique
+
+  pannes        Panne[]
+  TypepanneParc TypepanneParc[]
+}
+
+// 🔗 Relation N:N Typepanne <-> Parc
+model TypepanneParc {
+  parcId      String    @map("parc_id")
+  typepanneId String    @map("typepanne_id")
+  parc        Parc      @relation(fields: [parcId], references: [id], onDelete: Restrict)
+  typepanne   Typepanne @relation(fields: [typepanneId], references: [id], onDelete: Restrict)
+
+  @@id([parcId, typepanneId])
+  @@map("typepanne_parc")
+}
+
+// ========================
+// ⚠️ Panne
+// ========================
+model Panne {
+  id          String @id @default(uuid())
+  name        String @unique
+  typepanneId String
+
+  Typepanne Typepanne   @relation(fields: [typepanneId], references: [id], onDelete: Restrict)
+  Saisiehim Saisiehim[]
+}
+
+// ========================
+// 🕒 Saisie HRM
+// ========================
+model Saisiehrm {
+  id      String   @id @default(uuid())
+  du      DateTime
+  enginId String
+  siteId  String
+  hrm     Float
+
+  Engin     Engin       @relation(fields: [enginId], references: [id], onDelete: Restrict)
+  Site      Site        @relation(fields: [siteId], references: [id], onDelete: Restrict)
+  Saisiehim Saisiehim[]
+
+  @@unique([du, enginId])
+}
+
+// ========================
+// 🧰 Saisie HIM
+// ========================
+model Saisiehim {
+  id          String  @id @default(uuid())
+  panneId     String
+  him         Float
+  ni          Int
+  saisiehrmId String
+  obs         String?
+  enginId     String?
+
+  Panne            Panne              @relation(fields: [panneId], references: [id], onDelete: Restrict)
+  Saisiehrm        Saisiehrm          @relation(fields: [saisiehrmId], references: [id], onDelete: Restrict)
+  Engin            Engin?             @relation(fields: [enginId], references: [id])
+  Saisielubrifiant Saisielubrifiant[]
+
+  @@unique([panneId, saisiehrmId])
+}
+
+// ========================
+// 🛢️ Type lubrifiant
+// ========================
+model Typelubrifiant {
+  id   String @id @default(uuid())
+  name String @unique
+
+  lubrifiants Lubrifiant[]
+}
+
+// ========================
+// 🛢️ Lubrifiant
+// ========================
+model Lubrifiant {
+  id               String @id @default(uuid())
+  name             String @unique
+  typelubrifiantId String
+
+  Typelubrifiant   Typelubrifiant     @relation(fields: [typelubrifiantId], references: [id], onDelete: Restrict)
+  Saisielubrifiant Saisielubrifiant[]
+  LubrifiantParc   LubrifiantParc[]
+}
+
+// ========================
+// 🧴 Saisie Lubrifiant
+// ========================
+model Saisielubrifiant {
+  id                    String  @id @default(uuid())
+  lubrifiantId          String
+  qte                   Float
+  obs                   String?
+  saisiehimId           String
+  typeconsommationlubId String?
+
+  Lubrifiant          Lubrifiant           @relation(fields: [lubrifiantId], references: [id], onDelete: Restrict)
+  Saisiehim           Saisiehim            @relation(fields: [saisiehimId], references: [id], onDelete: Restrict)
+  Typeconsommationlub Typeconsommationlub? @relation(fields: [typeconsommationlubId], references: [id], onDelete: Restrict)
+}
+
+// ========================
+// 🎯 Objectif
+// ========================
+model Objectif {
+  id          String @id @default(uuid())
+  annee       Int
+  parcId      String
+  siteId      String
+  dispo       Float?
+  mtbf        Float?
+  tdm         Float?
+  spe_huile   Float?
+  spe_go      Float?
+  spe_graisse Float?
+
+  Parc Parc @relation(fields: [parcId], references: [id], onDelete: Restrict)
+  Site Site @relation(fields: [siteId], references: [id], onDelete: Restrict)
+
+  @@unique([annee, parcId, siteId])
 }

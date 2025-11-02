@@ -29,3 +29,18 @@ npm install --save-dev @types/passport @types/passport-jwt
 
 npm i chalk
 npm i --save class-validator class-transformer
+
+npm install @faker-js/faker
+==> crée clearData.ts et seed.ts dans src/prisma folder
+npx prisma generate
+==> dans scripts du package.json
+"seed": "ts-node src/prisma/seed.ts",
+"seed:clear": "ts-node src/prisma/clearData.ts"
+
+npm run seed
+npm run clear:data
+
+===> pour créer les ressources des models
+ajoute "generate:resources": "node src/scripts/generate-resources.js"
+crée scripts/generate-resources.js
+npm run generate:resources
