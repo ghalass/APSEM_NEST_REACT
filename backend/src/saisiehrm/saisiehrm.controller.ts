@@ -30,6 +30,21 @@ export class SaisiehrmController {
     return this.saisiehrmService.findOne(id);
   }
 
+  @Get('/by_engin_by_date/:enginId/:date')
+  findByDateByEngin(
+    @Param('enginId') enginId: string,
+    @Param('date') date: Date,
+  ) {
+    return this.saisiehrmService.findByEnginByDate(enginId, date);
+  }
+
+  @Get('/by_date/:date')
+  findByDate(@Param('date') date: Date) {
+    console.log(date);
+
+    return this.saisiehrmService.findByDate(date);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

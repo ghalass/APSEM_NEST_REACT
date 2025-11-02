@@ -1,0 +1,33 @@
+@baseUrl =http://localhost:3000
+@endpoint=panne
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=bdb8dd69-1998-4e38-8ffe-c01328277658
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test",
+    "typepanneId":"ed621cf8-ffbf-4471-8e46-ca8939926888"
+}
+
+### UPDATE
+@idUpdate=c218be2e-57f4-4c97-8a6d-b3cf86f01f47
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"Défaut cable"
+}
+
+### DELETE
+@idDelete=54b4d340-44e8-47c6-a4dc-2076caea49b1
+DELETE {{api}}/{{idDelete}}

@@ -1,0 +1,32 @@
+@baseUrl =http://localhost:3000
+@endpoint=typepanne
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=15c3cc54-378c-477f-b5da-1eee8b258a3e
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test"
+}
+
+### UPDATE
+@idUpdate=ed621cf8-ffbf-4471-8e46-ca8939926888
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"ELECTRIQUE"
+}
+
+### DELETE
+@idDelete=2b0b20cc-cc83-4d3f-84a1-16edfd5120f8
+DELETE {{api}}/{{idDelete}}

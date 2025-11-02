@@ -25,6 +25,14 @@ export class EnginService {
       if (!parc) throw new BadRequestException('Parc non trouvé');
       if (!site) throw new BadRequestException('Site non trouvé');
 
+      // Vérifier si un engin avec le même nom existe déjà
+      const existingEngin = await this.prisma.engin.findUnique({
+        where: { name: createEnginDto.name },
+      });
+      if (existingEngin) {
+        throw new BadRequestException('Un engin avec ce nom existe déjà');
+      }
+
       const engin = await this.prisma.engin.create({
         data: {
           name: createEnginDto.name,

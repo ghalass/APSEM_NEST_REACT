@@ -1,0 +1,32 @@
+@baseUrl =http://localhost:3000
+@endpoint=typeparc
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=a4f9fcaf-3d31-4c8c-a18b-d996487c28ad
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test"
+}
+
+### UPDATE
+@idUpdate=d045d1f0-5e8b-4e15-b6aa-a37793de4301
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"Terrassement"
+}
+
+### DELETE
+@idDelete=896dd06e-5c62-4e21-bbb0-891ce5438d69
+DELETE {{api}}/{{idDelete}}

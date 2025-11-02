@@ -161,7 +161,7 @@ model Saisiehrm {
   du      DateTime
   enginId String
   siteId  String
-  hrm     Float
+  hrm     Float //ne doit pas dépasser 24h
 
   Engin     Engin       @relation(fields: [enginId], references: [id], onDelete: Restrict)
   Site      Site        @relation(fields: [siteId], references: [id], onDelete: Restrict)

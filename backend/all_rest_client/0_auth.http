@@ -1,0 +1,16 @@
+@baseUrl =http://localhost:3001
+@id = d0bdd140-4e9f-4dc6-b78d-9f818f55aeb7
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA1NWFlMGQ4LWQxODEtNDkzMi1iNTE4LWNjMzYyMGY1NmVlZiIsInVzZXJuYW1lIjoic2lkaSIsImVtYWlsIjoic2lkaUBlbWFpbC5jb20iLCJpYXQiOjE3NjE0MzQ3NDV9.Zs1l0jlexeIrNO7FV44jlt9M3zJuxRp6qZ4Sdr_e_Zc
+
+### AUTHENTICATE USER ###
+POST {{baseUrl}}/auth
+Content-Type: application/json
+
+{
+    "username":"sidi",
+    "password": "sidi12345"
+}
+
+### GET AUTHENTICATED USER ###
+GET {{baseUrl}}/auth
+Authorization: Bearer {{token}}

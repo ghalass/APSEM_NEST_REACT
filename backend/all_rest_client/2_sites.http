@@ -1,0 +1,32 @@
+@baseUrl =http://localhost:3000
+@endpoint=site
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=0efa84f6-5417-46e1-95c6-151dc8f9b89c
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test"
+}
+
+### UPDATE
+@idUpdate=f4031596-9f6d-44de-92dc-b30e9bf63fee
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"test updated"
+}
+
+### DELETE
+@idDelete=1ecaac0e-d0d2-4eb3-b065-a442d0d7a519
+DELETE {{api}}/{{idDelete}}

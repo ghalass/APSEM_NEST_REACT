@@ -1,0 +1,33 @@
+@baseUrl =http://localhost:3000
+@endpoint=parc
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=4a656b41-d98f-4c23-8eb9-b1da69fdae3e
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"789C",
+    "typeparcId":"727abcff-c364-462d-8666-65f97b5f37fc"
+}
+
+### UPDATE
+@idUpdate=4a656b41-d98f-4c23-8eb9-b1da69fdae3e
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"Foration diesel",
+}
+
+### DELETE
+@idDelete=4a656b41-d98f-4c23-8eb9-b1da69fdae3e
+DELETE {{api}}/{{idDelete}}

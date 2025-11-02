@@ -1,13 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  IsOptional,
-  IsBoolean,
-  IsNumber,
-  IsUUID,
-  IsInt,
-} from 'class-validator';
+import { IsString, IsOptional, IsNumber, IsUUID, IsInt } from 'class-validator';
 
 // ========================
 // 🧰 Saisiehim

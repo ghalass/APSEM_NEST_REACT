@@ -38,9 +38,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
+      whitelist: true, // ✅ enlève les champs non déclarés dans le DTO
+      forbidNonWhitelisted: true, // 🚫 rejette carrément la requête si des champs inconnus sont envoyés
+      transform: true, // 🎯 transforme les payloads en instances de DTO
 
       // 👉 Personnalisation du format d’erreur
       exceptionFactory: (errors) => {
@@ -62,7 +62,7 @@ async function bootstrap() {
 
   // ✅ Autoriser le CORS pour ton front-end
   app.enableCors({
-    origin: 'http://localhost:5173', // ton app React
+    origin: ['http://localhost:5173'], // ton app React
     credentials: true, // si tu utilises les cookies ou des headers d'auth
   });
 

@@ -1,0 +1,48 @@
+@baseUrl =http://localhost:3000
+@endpoint=saisiehrm
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=d2f92fb0-fd5f-4b98-b17e-dc83002cddb6
+GET {{api}}/{{idFindOne}}
+
+### FIND ONE BY DATE BY ENGIN ID
+@date="2025-10-17"
+@enginId=4a9e3e23-4183-42c5-9776-5994bee21711
+GET {{api}}/by_engin_by_date/{{enginId}}/{{date}}
+
+### FIND ALL BY DATE
+@date=2025-10-17
+GET {{api}}/by_date/{{date}}
+
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "du":"2025-11-02",
+    "enginId":"e351fcc6-fee2-4baa-b094-48651146e774",
+    "siteId":"0efa84f6-5417-46e1-95c6-151dc8f9b89c",
+    "hrm":24
+}
+
+### UPDATE
+@idUpdate=d2f92fb0-fd5f-4b98-b17e-dc83002cddb6
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "du":"2025-11-02",
+    "enginId":"e351fcc6-fee2-4baa-b094-48651146e774",
+    "siteId":"0efa84f6-5417-46e1-95c6-151dc8f9b89c",
+    "hrm":10
+}
+
+### DELETE
+@idDelete=54b4d340-44e8-47c6-a4dc-2076caea49b1
+DELETE {{api}}/{{idDelete}}
