@@ -12,15 +12,15 @@ export class PanneService {
     return `This action returns all panne`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} panne`;
   }
 
-  update(id: number, updatePanneDto: UpdatePanneDto) {
+  update(id: string, updatePanneDto: UpdatePanneDto) {
     return `This action updates a #${id} panne`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} panne`;
   }
 }

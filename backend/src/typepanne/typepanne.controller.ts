@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TypepanneService } from './typepanne.service';
 import { CreateTypepanneDto } from './dto/create-typepanne.dto';
 import { UpdateTypepanneDto } from './dto/update-typepanne.dto';
@@ -19,16 +27,19 @@ export class TypepanneController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.typepanneService.findOne(+id);
+    return this.typepanneService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTypepanneDto: UpdateTypepanneDto) {
-    return this.typepanneService.update(+id, updateTypepanneDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateTypepanneDto: UpdateTypepanneDto,
+  ) {
+    return this.typepanneService.update(id, updateTypepanneDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.typepanneService.remove(+id);
+    return this.typepanneService.remove(id);
   }
 }

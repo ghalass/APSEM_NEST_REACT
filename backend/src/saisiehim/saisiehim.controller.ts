@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SaisiehimService } from './saisiehim.service';
 import { CreateSaisiehimDto } from './dto/create-saisiehim.dto';
 import { UpdateSaisiehimDto } from './dto/update-saisiehim.dto';
@@ -19,16 +27,19 @@ export class SaisiehimController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.saisiehimService.findOne(+id);
+    return this.saisiehimService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSaisiehimDto: UpdateSaisiehimDto) {
-    return this.saisiehimService.update(+id, updateSaisiehimDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateSaisiehimDto: UpdateSaisiehimDto,
+  ) {
+    return this.saisiehimService.update(id, updateSaisiehimDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.saisiehimService.remove(+id);
+    return this.saisiehimService.remove(id);
   }
 }

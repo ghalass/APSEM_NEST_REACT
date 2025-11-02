@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TypepanneParcService } from './typepanne-parc.service';
 import { CreateTypepanneParcDto } from './dto/create-typepanne-parc.dto';
 import { UpdateTypepanneParcDto } from './dto/update-typepanne-parc.dto';
@@ -19,16 +27,19 @@ export class TypepanneParcController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.typepanneParcService.findOne(+id);
+    return this.typepanneParcService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTypepanneParcDto: UpdateTypepanneParcDto) {
-    return this.typepanneParcService.update(+id, updateTypepanneParcDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateTypepanneParcDto: UpdateTypepanneParcDto,
+  ) {
+    return this.typepanneParcService.update(id, updateTypepanneParcDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.typepanneParcService.remove(+id);
+    return this.typepanneParcService.remove(id);
   }
 }

@@ -12,15 +12,15 @@ export class TypepanneParcService {
     return `This action returns all typepanneParc`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} typepanneParc`;
   }
 
-  update(id: number, updateTypepanneParcDto: UpdateTypepanneParcDto) {
+  update(id: string, updateTypepanneParcDto: UpdateTypepanneParcDto) {
     return `This action updates a #${id} typepanneParc`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} typepanneParc`;
   }
 }

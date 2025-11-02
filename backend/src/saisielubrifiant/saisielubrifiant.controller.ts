@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SaisielubrifiantService } from './saisielubrifiant.service';
 import { CreateSaisielubrifiantDto } from './dto/create-saisielubrifiant.dto';
 import { UpdateSaisielubrifiantDto } from './dto/update-saisielubrifiant.dto';
 
 @Controller('saisielubrifiant')
 export class SaisielubrifiantController {
-  constructor(private readonly saisielubrifiantService: SaisielubrifiantService) {}
+  constructor(
+    private readonly saisielubrifiantService: SaisielubrifiantService,
+  ) {}
 
   @Post()
   create(@Body() createSaisielubrifiantDto: CreateSaisielubrifiantDto) {
@@ -19,16 +29,19 @@ export class SaisielubrifiantController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.saisielubrifiantService.findOne(+id);
+    return this.saisielubrifiantService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSaisielubrifiantDto: UpdateSaisielubrifiantDto) {
-    return this.saisielubrifiantService.update(+id, updateSaisielubrifiantDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateSaisielubrifiantDto: UpdateSaisielubrifiantDto,
+  ) {
+    return this.saisielubrifiantService.update(id, updateSaisielubrifiantDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.saisielubrifiantService.remove(+id);
+    return this.saisielubrifiantService.remove(id);
   }
 }

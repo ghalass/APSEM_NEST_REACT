@@ -12,15 +12,15 @@ export class ParcService {
     return `This action returns all parc`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} parc`;
   }
 
-  update(id: number, updateParcDto: UpdateParcDto) {
+  update(id: string, updateParcDto: UpdateParcDto) {
     return `This action updates a #${id} parc`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} parc`;
   }
 }

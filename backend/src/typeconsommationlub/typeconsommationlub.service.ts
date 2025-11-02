@@ -12,15 +12,18 @@ export class TypeconsommationlubService {
     return `This action returns all typeconsommationlub`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} typeconsommationlub`;
   }
 
-  update(id: number, updateTypeconsommationlubDto: UpdateTypeconsommationlubDto) {
+  update(
+    id: string,
+    updateTypeconsommationlubDto: UpdateTypeconsommationlubDto,
+  ) {
     return `This action updates a #${id} typeconsommationlub`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} typeconsommationlub`;
   }
 }

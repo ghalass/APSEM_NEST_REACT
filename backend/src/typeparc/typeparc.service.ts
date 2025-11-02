@@ -12,15 +12,15 @@ export class TypeparcService {
     return `This action returns all typeparc`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} typeparc`;
   }
 
-  update(id: number, updateTypeparcDto: UpdateTypeparcDto) {
+  update(id: string, updateTypeparcDto: UpdateTypeparcDto) {
     return `This action updates a #${id} typeparc`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} typeparc`;
   }
 }

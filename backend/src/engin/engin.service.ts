@@ -12,15 +12,15 @@ export class EnginService {
     return `This action returns all engin`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} engin`;
   }
 
-  update(id: number, updateEnginDto: UpdateEnginDto) {
+  update(id: string, updateEnginDto: UpdateEnginDto) {
     return `This action updates a #${id} engin`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} engin`;
   }
 }

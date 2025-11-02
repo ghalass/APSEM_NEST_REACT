@@ -12,15 +12,15 @@ export class SaisielubrifiantService {
     return `This action returns all saisielubrifiant`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} saisielubrifiant`;
   }
 
-  update(id: number, updateSaisielubrifiantDto: UpdateSaisielubrifiantDto) {
+  update(id: string, updateSaisielubrifiantDto: UpdateSaisielubrifiantDto) {
     return `This action updates a #${id} saisielubrifiant`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} saisielubrifiant`;
   }
 }

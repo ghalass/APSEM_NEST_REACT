@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { TypelubrifiantService } from './typelubrifiant.service';
 import { CreateTypelubrifiantDto } from './dto/create-typelubrifiant.dto';
 import { UpdateTypelubrifiantDto } from './dto/update-typelubrifiant.dto';
@@ -19,16 +27,19 @@ export class TypelubrifiantController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.typelubrifiantService.findOne(+id);
+    return this.typelubrifiantService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTypelubrifiantDto: UpdateTypelubrifiantDto) {
-    return this.typelubrifiantService.update(+id, updateTypelubrifiantDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateTypelubrifiantDto: UpdateTypelubrifiantDto,
+  ) {
+    return this.typelubrifiantService.update(id, updateTypelubrifiantDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.typelubrifiantService.remove(+id);
+    return this.typelubrifiantService.remove(id);
   }
 }

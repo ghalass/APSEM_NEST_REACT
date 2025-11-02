@@ -12,15 +12,15 @@ export class ObjectifService {
     return `This action returns all objectif`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} objectif`;
   }
 
-  update(id: number, updateObjectifDto: UpdateObjectifDto) {
+  update(id: string, updateObjectifDto: UpdateObjectifDto) {
     return `This action updates a #${id} objectif`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} objectif`;
   }
 }

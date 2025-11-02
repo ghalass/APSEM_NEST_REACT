@@ -12,15 +12,15 @@ export class LubrifiantService {
     return `This action returns all lubrifiant`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} lubrifiant`;
   }
 
-  update(id: number, updateLubrifiantDto: UpdateLubrifiantDto) {
+  update(id: string, updateLubrifiantDto: UpdateLubrifiantDto) {
     return `This action updates a #${id} lubrifiant`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} lubrifiant`;
   }
 }

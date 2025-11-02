@@ -12,15 +12,15 @@ export class SaisiehrmService {
     return `This action returns all saisiehrm`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} saisiehrm`;
   }
 
-  update(id: number, updateSaisiehrmDto: UpdateSaisiehrmDto) {
+  update(id: string, updateSaisiehrmDto: UpdateSaisiehrmDto) {
     return `This action updates a #${id} saisiehrm`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} saisiehrm`;
   }
 }
