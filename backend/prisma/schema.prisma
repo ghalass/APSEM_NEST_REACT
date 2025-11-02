@@ -19,6 +19,8 @@ model User {
   role      Role      @default(USER)
   active    Boolean   @default(true)
   createdAt DateTime? @default(now()) @map("created_at")
+
+  @@map("user")
 }
 
 enum Role {
@@ -39,6 +41,8 @@ model Site {
   engins    Engin[]
   Saisiehrm Saisiehrm[]
   Objectif  Objectif[]
+
+  @@map("site")
 }
 
 // ========================
@@ -50,6 +54,8 @@ model Typeparc {
 
   // Relations
   parcs Parc[]
+
+  @@map("typeparc")
 }
 
 // ========================
@@ -66,6 +72,8 @@ model Parc {
   Objectif             Objectif[]
 
   Typeparc Typeparc @relation(fields: [typeparcId], references: [id], onDelete: Restrict)
+
+  @@map("parc")
 }
 
 // ========================
@@ -76,6 +84,8 @@ model Typeconsommationlub {
   name             String                    @unique
   parcs            TypeconsommationlubParc[]
   Saisielubrifiant Saisielubrifiant[]
+
+  @@map("typeconsommation_lub")
 }
 
 // 🔗 Relation N:N Parc <-> Typeconsommationlub
@@ -117,6 +127,8 @@ model Engin {
   Site      Site        @relation(fields: [siteId], references: [id], onDelete: Restrict)
   Saisiehrm Saisiehrm[]
   Saisiehim Saisiehim[]
+
+  @@map("engin")
 }
 
 // ========================
@@ -128,6 +140,8 @@ model Typepanne {
 
   pannes        Panne[]
   TypepanneParc TypepanneParc[]
+
+  @@map("typepanne")
 }
 
 // 🔗 Relation N:N Typepanne <-> Parc
@@ -151,6 +165,8 @@ model Panne {
 
   Typepanne Typepanne   @relation(fields: [typepanneId], references: [id], onDelete: Restrict)
   Saisiehim Saisiehim[]
+
+  @@map("panne")
 }
 
 // ========================
@@ -168,6 +184,7 @@ model Saisiehrm {
   Saisiehim Saisiehim[]
 
   @@unique([du, enginId])
+  @@map("saisie_hrm")
 }
 
 // ========================
@@ -188,6 +205,7 @@ model Saisiehim {
   Saisielubrifiant Saisielubrifiant[]
 
   @@unique([panneId, saisiehrmId])
+  @@map("saisie_him")
 }
 
 // ========================
@@ -198,6 +216,8 @@ model Typelubrifiant {
   name String @unique
 
   lubrifiants Lubrifiant[]
+
+  @@map("type_lubrifiant")
 }
 
 // ========================
@@ -211,6 +231,8 @@ model Lubrifiant {
   Typelubrifiant   Typelubrifiant     @relation(fields: [typelubrifiantId], references: [id], onDelete: Restrict)
   Saisielubrifiant Saisielubrifiant[]
   LubrifiantParc   LubrifiantParc[]
+
+  @@map("lubrifiant")
 }
 
 // ========================
@@ -227,6 +249,8 @@ model Saisielubrifiant {
   Lubrifiant          Lubrifiant           @relation(fields: [lubrifiantId], references: [id], onDelete: Restrict)
   Saisiehim           Saisiehim            @relation(fields: [saisiehimId], references: [id], onDelete: Restrict)
   Typeconsommationlub Typeconsommationlub? @relation(fields: [typeconsommationlubId], references: [id], onDelete: Restrict)
+
+  @@map("saisie_lubrifiant")
 }
 
 // ========================
@@ -248,4 +272,5 @@ model Objectif {
   Site Site @relation(fields: [siteId], references: [id], onDelete: Restrict)
 
   @@unique([annee, parcId, siteId])
+  @@map("objectif")
 }

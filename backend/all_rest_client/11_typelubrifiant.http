@@ -1,0 +1,32 @@
+@baseUrl =http://localhost:3000
+@endpoint=typelubrifiant
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=a3d433bb-cb0f-4012-8205-82f444b616d6
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test"
+}
+
+### UPDATE
+@idUpdate=0626b44c-963c-45ee-854e-12ef548232f9
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"test up"
+}
+
+### DELETE
+@idDelete=0626b44c-963c-45ee-854e-12ef548232f9
+DELETE {{api}}/{{idDelete}}

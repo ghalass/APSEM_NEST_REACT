@@ -1,0 +1,33 @@
+@baseUrl =http://localhost:3000
+@endpoint=lubrifiant
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=f6fa7881-2717-4914-923a-5ed96df24f10
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test",
+    "typelubrifiantId":"c816c2b1-29fd-4677-a303-c56be5d7e5b7"
+}
+
+### UPDATE
+@idUpdate=e9fe2761-a6d3-4075-91ca-3b88c4e845ae
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "typelubrifiantId":"07608f12-67e4-40aa-8b56-2c617402220b"
+}
+
+### DELETE
+@idDelete=4c2ef5e0-862a-434d-9a01-bac0997a08c7
+DELETE {{api}}/{{idDelete}}

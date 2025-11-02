@@ -159,6 +159,59 @@ async function main() {
   }
 
   console.log('🎯 Objectifs créés.');
+
+  // === TYPE CONSOMMATION LUBRIFIANT ===
+  const typeConsommationLubs = await Promise.all(
+    ['LUBRIFIANT MOTEUR', 'LUBRIFIANT HYDRAULIQUE', 'LUBRIFIANT BOITE'].map(
+      async (name) => {
+        return prisma.typeconsommationlub.create({ data: { name } });
+      },
+    ),
+  );
+  console.log(
+    `🛢️ ${typeConsommationLubs.length} types de consommation lubrifiant créés.`,
+  );
+
+  // === RELATION PARC <-> TYPE CONSOMMATION LUBRIFIANT ===
+  for (const parc of parcs) {
+    for (const typeLub of typeConsommationLubs) {
+      await prisma.typeconsommationlubParc.create({
+        data: {
+          parcId: parc.id,
+          typeconsommationlubId: typeLub.id,
+        },
+      });
+    }
+  }
+  console.log(`🔗 Relations Parc <-> TypeConsommationLub créées.`);
+
+  // === RELATION PARC <-> TYPE PANNE ===
+  for (const parc of parcs) {
+    for (const tp of [typepanne]) {
+      // tu peux étendre si tu as plusieurs typepannes
+      await prisma.typepanneParc.create({
+        data: {
+          parcId: parc.id,
+          typepanneId: tp.id,
+        },
+      });
+    }
+  }
+  console.log(`🔗 Relations Parc <-> TypePanne créées.`);
+
+  // === RELATION PARC <-> LUBRIFIANT ===
+  for (const parc of parcs) {
+    for (const lub of lubList) {
+      await prisma.lubrifiantParc.create({
+        data: {
+          parcId: parc.id,
+          lubrifiantId: lub.id,
+        },
+      });
+    }
+  }
+  console.log(`🔗 Relations Parc <-> Lubrifiant créées.`);
+
   console.log('✅ Seeding terminé avec succès.');
 }
 
