@@ -67,14 +67,14 @@ export class SaisiehimService {
   // ✅ Lister toutes les saisiehim
   async findAll() {
     return this.prisma.saisiehim.findMany({
-      include: {
-        Panne: true,
-        Saisiehrm: true,
-        Engin: true,
-        Saisielubrifiant: {
-          include: { Lubrifiant: true, Typeconsommationlub: true },
-        },
-      },
+      // include: {
+      //   Panne: true,
+      //   Saisiehrm: true,
+      //   Engin: true,
+      //   Saisielubrifiant: {
+      //     include: { Lubrifiant: true, Typeconsommationlub: true },
+      //   },
+      // },
     });
   }
 
@@ -82,14 +82,14 @@ export class SaisiehimService {
   async findOne(id: string) {
     const saisiehim = await this.prisma.saisiehim.findUnique({
       where: { id },
-      include: {
-        Panne: true,
-        Saisiehrm: true,
-        Engin: true,
-        Saisielubrifiant: {
-          include: { Lubrifiant: true, Typeconsommationlub: true },
-        },
-      },
+      // include: {
+      //   Panne: true,
+      //   Saisiehrm: true,
+      //   Engin: true,
+      //   Saisielubrifiant: {
+      //     include: { Lubrifiant: true, Typeconsommationlub: true },
+      //   },
+      // },
     });
     if (!saisiehim) throw new NotFoundException(`Saisiehim #${id} non trouvée`);
     return saisiehim;
@@ -135,14 +135,14 @@ export class SaisiehimService {
       return await this.prisma.saisiehim.update({
         where: { id },
         data: updateSaisiehimDto,
-        include: {
-          Panne: true,
-          Saisiehrm: true,
-          Engin: true,
-          Saisielubrifiant: {
-            include: { Lubrifiant: true, Typeconsommationlub: true },
-          },
-        },
+        // include: {
+        //   Panne: true,
+        //   Saisiehrm: true,
+        //   Engin: true,
+        //   Saisielubrifiant: {
+        //     include: { Lubrifiant: true, Typeconsommationlub: true },
+        //   },
+        // },
       });
     } catch (error: any) {
       if (error.code === 'P2002') {

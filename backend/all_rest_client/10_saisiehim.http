@@ -1,0 +1,41 @@
+@baseUrl =http://localhost:3000
+@endpoint=saisiehim
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=4bd3a777-956a-4148-978a-be48b1b116fc
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "enginId":"e351fcc6-fee2-4baa-b094-48651146e774",
+    "panneId":"2a96a7de-c7c5-44b5-84b4-3bda2bac0502",
+    "saisiehrmId":"dff07eff-bc55-48f0-b7ab-2a3443ae476d",
+    "him":24,
+    "ni":1
+}
+
+### UPDATE
+@idUpdate=4bd3a777-956a-4148-978a-be48b1b116fc
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "enginId":"e351fcc6-fee2-4baa-b094-48651146e774",
+    "panneId":"2a96a7de-c7c5-44b5-84b4-3bda2bac0502",
+    "saisiehrmId":"dff07eff-bc55-48f0-b7ab-2a3443ae476d",
+    "him":22,
+    "ni":2,
+    "obs":"observation 1"
+}
+
+### DELETE
+@idDelete=54b4d340-44e8-47c6-a4dc-2076caea49b1
+DELETE {{api}}/{{idDelete}}
