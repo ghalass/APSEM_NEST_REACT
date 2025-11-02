@@ -1,0 +1,36 @@
+@baseUrl =http://localhost:3000
+@endpoint=lubrifiant-parc
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@parcId=98fdbd4b-36a5-4c91-bdf7-89895bea9401
+@lubrifiantId=748f5134-7aee-4ceb-8c52-3aa5dc4264d2
+GET {{api}}/{{parcId}}/{{lubrifiantId}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "lubrifiantId":"748f5134-7aee-4ceb-8c52-3aa5dc4264d2"
+}
+
+### UPDATE
+@parcId=98fdbd4b-36a5-4c91-bdf7-89895bea9401
+@lubrifiantId=748f5134-7aee-4ceb-8c52-3aa5dc4264d2
+PATCH {{api}}/{{parcId}}/{{lubrifiantId}}
+Content-Type: application/json
+
+{
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "lubrifiantId":"748f5134-7aee-4ceb-8c52-3aa5dc4264d2"
+}
+
+### DELETE
+@idDelete=54b4d340-44e8-47c6-a4dc-2076caea49b1
+DELETE {{api}}/{{idDelete}}

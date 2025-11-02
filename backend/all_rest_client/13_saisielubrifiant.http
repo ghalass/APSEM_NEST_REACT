@@ -1,0 +1,46 @@
+@baseUrl =http://localhost:3000
+@endpoint=saisielubrifiant
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=62f4db4f-ebf1-4541-aa25-0f86acaba757
+GET {{api}}/{{idFindOne}}
+
+### FIND ONE BY DATE BY ENGIN ID
+@date="2025-10-17"
+@enginId=4a9e3e23-4183-42c5-9776-5994bee21711
+GET {{api}}/by_engin_by_date/{{enginId}}/{{date}}
+
+### FIND ALL BY DATE
+@date=2025-10-17
+GET {{api}}/by_date/{{date}}
+
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "lubrifiantId":"748f5134-7aee-4ceb-8c52-3aa5dc4264d2",
+    "qte":50,
+    "saisiehimId":"3703a779-17ad-441b-88be-a1b062c7c4db"
+}
+
+### UPDATE
+@idUpdate=7ac93a08-1948-4542-86a7-9fe944e9379b
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "lubrifiantId":"748f5134-7aee-4ceb-8c52-3aa5dc4264d2",
+    "qte":51,
+    "saisiehimId":"3703a779-17ad-441b-88be-a1b062c7c4db"
+}
+
+### DELETE
+@idDelete=54b4d340-44e8-47c6-a4dc-2076caea49b1
+DELETE {{api}}/{{idDelete}}

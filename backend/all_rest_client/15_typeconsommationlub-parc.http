@@ -1,0 +1,36 @@
+@baseUrl =http://localhost:3000
+@endpoint=typeconsommationlub-parc
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@parcId=98fdbd4b-36a5-4c91-bdf7-89895bea9401
+@typeconsommationlubId=78bfe15b-8e26-49a0-9693-3b66108db060
+GET {{api}}/{{parcId}}/{{typeconsommationlubId}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "parcId":"ed621cf8-ffbf-4471-8e46-ca8939926888",
+    "typeconsommationlubId":"ed621cf8-ffbf-4471-8e46-ca8939926888"
+}
+
+### UPDATE
+@parcId=98fdbd4b-36a5-4c91-bdf7-89895bea9401
+@typeconsommationlubId=78bfe15b-8e26-49a0-9693-3b66108db060
+PATCH {{api}}/{{parcId}}/{{typeconsommationlubId}}
+Content-Type: application/json
+
+{
+    "parcId":"ed621cf8-ffbf-4471-8e46-ca8939926888",
+    "typeconsommationlubId":"ed621cf8-ffbf-4471-8e46-ca8939926888"
+}
+
+### DELETE
+@idDelete=54b4d340-44e8-47c6-a4dc-2076caea49b1
+DELETE {{api}}/{{parcId}}/{{typeconsommationlubId}}

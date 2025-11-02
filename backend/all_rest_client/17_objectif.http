@@ -1,0 +1,42 @@
+@baseUrl =http://localhost:3000
+@endpoint=objectif
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=aec0dad8-f6a9-4f9a-8e53-cb0f03c031b5
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "annee":2025,
+    "parcId":"98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "siteId":"86078b82-19ec-4b85-b5ea-6f0c7dc64758"
+}
+
+### UPDATE
+@idUpdate=80a499ac-827a-46ff-a2d2-1a393d5607bc
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "annee": 2025,
+    "parcId": "98fdbd4b-36a5-4c91-bdf7-89895bea9401",
+    "siteId": "86078b82-19ec-4b85-b5ea-6f0c7dc64758",
+    "dispo": 80,
+    "mtbf": 25,
+    "tdm": 70,
+    "spe_huile": null,
+    "spe_go": null,
+    "spe_graisse": null
+}
+
+### DELETE
+@idDelete=896dd06e-5c62-4e21-bbb0-891ce5438d69
+DELETE {{api}}/{{idDelete}}

@@ -13,42 +13,45 @@ import { UpdateTypeconsommationlubParcDto } from './dto/update-typeconsommationl
 
 @Controller('typeconsommationlub-parc')
 export class TypeconsommationlubParcController {
-  constructor(
-    private readonly typeconsommationlubParcService: TypeconsommationlubParcService,
-  ) {}
+  constructor(private readonly service: TypeconsommationlubParcService) {}
 
+  // ✅ Créer une nouvelle relation
+  @Post()
+  create(@Body() dto: CreateTypeconsommationlubParcDto) {
+    return this.service.create(dto);
+  }
+
+  // ✅ Récupérer toutes les relations
+  @Get()
+  findAll() {
+    return this.service.findAll();
+  }
+
+  // ✅ Récupérer une relation spécifique
   @Get(':parcId/:typeconsommationlubId')
   findOne(
     @Param('parcId') parcId: string,
     @Param('typeconsommationlubId') typeconsommationlubId: string,
   ) {
-    return this.typeconsommationlubParcService.findOne(
-      parcId,
-      typeconsommationlubId,
-    );
+    return this.service.findOne(parcId, typeconsommationlubId);
   }
 
+  // ✅ Mettre à jour une relation
   @Patch(':parcId/:typeconsommationlubId')
   update(
     @Param('parcId') parcId: string,
     @Param('typeconsommationlubId') typeconsommationlubId: string,
     @Body() dto: UpdateTypeconsommationlubParcDto,
   ) {
-    return this.typeconsommationlubParcService.update(
-      parcId,
-      typeconsommationlubId,
-      dto,
-    );
+    return this.service.update(parcId, typeconsommationlubId, dto);
   }
 
+  // ✅ Supprimer une relation
   @Delete(':parcId/:typeconsommationlubId')
   remove(
     @Param('parcId') parcId: string,
     @Param('typeconsommationlubId') typeconsommationlubId: string,
   ) {
-    return this.typeconsommationlubParcService.remove(
-      parcId,
-      typeconsommationlubId,
-    );
+    return this.service.remove(parcId, typeconsommationlubId);
   }
 }

@@ -1,0 +1,32 @@
+@baseUrl =http://localhost:3000
+@endpoint=typeconsommationlub
+@api={{baseUrl}}/{{endpoint}}
+
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=78bfe15b-8e26-49a0-9693-3b66108db060
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name":"test 2"
+}
+
+### UPDATE
+@idUpdate=8c2127d2-be8f-4612-af06-7688c51d8e99
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "name":"test 2 up"
+}
+
+### DELETE
+@idDelete=896dd06e-5c62-4e21-bbb0-891ce5438d69
+DELETE {{api}}/{{idDelete}}
