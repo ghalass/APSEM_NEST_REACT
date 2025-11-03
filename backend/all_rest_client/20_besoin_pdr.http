@@ -1,0 +1,37 @@
+@baseUrl =http://localhost:3000
+@endpoint=besoin-pdr
+@api={{baseUrl}}/{{endpoint}}
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=dd6d6c86-6a44-4997-8ef7-3bc3145c301f
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "ref":"123-2325",
+    "anomalie_id":"110f9553-3a34-4c22-a8b4-3dcedc5b687d",
+    "besoin_status":"ATTENTE_BS"
+}
+
+### UPDATE
+@idUpdate=dd6d6c86-6a44-4997-8ef7-3bc3145c301f
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "ref":"123-2327",
+    "anomalie_id":"110f9553-3a34-4c22-a8b4-3dcedc5b687d",
+    "besoin_status":"ATTENTE_BS",
+    "code":"75500",
+    "no_bs": "bs n°12345"
+}
+
+### DELETE
+@idDelete=4c2ef5e0-862a-434d-9a01-bac0997a08c7
+DELETE {{api}}/{{idDelete}}

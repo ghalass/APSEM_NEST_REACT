@@ -1,10 +1,12 @@
-/* 
-  ✅ prisma/seed.ts
-  Script de seed complet pour ton schéma UUID
-  Génère : Users, Sites, Typeparcs, Parcs, Engins, Lubrifiants, Objectifs, etc.
-*/
-
-import { PrismaClient, Role } from '@prisma/client';
+import {
+  BesoinStatus,
+  PrismaClient,
+  Role,
+  Source,
+  Status,
+  Urgence,
+  Engin,
+} from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
@@ -35,19 +37,18 @@ async function main() {
   for (const user of usersData) {
     await prisma.user.create({ data: user });
   }
-
   console.log(`👤 ${usersData.length} users créés.`);
 
   // === SITES ===
   const siteData = Array.from({ length: 5 }).map(() => ({
     name: faker.company.name(),
   }));
-  const sites = await prisma.site.createMany({ data: siteData });
+  await prisma.site.createMany({ data: siteData });
   const siteList = await prisma.site.findMany();
   console.log(`🏗️ ${siteList.length} sites créés.`);
 
   // === TYPEPARC ===
-  const typeparcs = await prisma.typeparc.createMany({
+  await prisma.typeparc.createMany({
     data: ['MINIER', 'CHANTIER', 'TRANSPORT'].map((name) => ({ name })),
   });
   const typeparcList = await prisma.typeparc.findMany();
@@ -85,7 +86,7 @@ async function main() {
   const typelub = await prisma.typelubrifiant.create({
     data: { name: 'HUILE MOTEUR' },
   });
-  const lubrifiants = await prisma.lubrifiant.createMany({
+  await prisma.lubrifiant.createMany({
     data: [
       { name: 'TOTAL 15W40', typelubrifiantId: typelub.id },
       { name: 'SHELL HELIX 10W30', typelubrifiantId: typelub.id },
@@ -98,7 +99,7 @@ async function main() {
   const typepanne = await prisma.typepanne.create({
     data: { name: 'MÉCANIQUE' },
   });
-  const pannes = await prisma.panne.createMany({
+  await prisma.panne.createMany({
     data: [
       { name: 'Casse moteur', typepanneId: typepanne.id },
       { name: 'Fuite hydraulique', typepanneId: typepanne.id },
@@ -138,7 +139,6 @@ async function main() {
       },
     });
   }
-
   console.log('📊 Saisies HRM/HIM/Lubrifiants créées.');
 
   // === OBJECTIFS ===
@@ -157,7 +157,6 @@ async function main() {
       },
     });
   }
-
   console.log('🎯 Objectifs créés.');
 
   // === TYPE CONSOMMATION LUBRIFIANT ===
@@ -187,15 +186,12 @@ async function main() {
 
   // === RELATION PARC <-> TYPE PANNE ===
   for (const parc of parcs) {
-    for (const tp of [typepanne]) {
-      // tu peux étendre si tu as plusieurs typepannes
-      await prisma.typepanneParc.create({
-        data: {
-          parcId: parc.id,
-          typepanneId: tp.id,
-        },
-      });
-    }
+    await prisma.typepanneParc.create({
+      data: {
+        parcId: parc.id,
+        typepanneId: typepanne.id,
+      },
+    });
   }
   console.log(`🔗 Relations Parc <-> TypePanne créées.`);
 
@@ -212,6 +208,76 @@ async function main() {
   }
   console.log(`🔗 Relations Parc <-> Lubrifiant créées.`);
 
+  // === ANOMALIES & BESOINS PDR ===
+  console.log('🌱 Création des anomalies et besoins PDR...');
+
+  const anomalies: any[] = [];
+
+  for (let i = 0; i < 10; i++) {
+    const site = faker.helpers.arrayElement(siteList);
+    const enginLocal = faker.helpers.arrayElement(engins);
+    const typepanneLocal = typepanne;
+
+    const anomalie = await prisma.anomalie.create({
+      data: {
+        date_anomalie: faker.date.recent({ days: 60 }),
+        description: faker.lorem.sentence(),
+        source: faker.helpers.arrayElement([
+          Source.VS,
+          Source.VJ,
+          Source.INSPECTION,
+        ]),
+        urgence: faker.helpers.arrayElement([
+          Urgence.TRES_ELEVEE,
+          Urgence.ELEVEE,
+          Urgence.MOYENNE,
+          Urgence.FAIBLE,
+        ]),
+        enginId: enginLocal.id, // ✅ OK maintenant
+        typepanneId: typepanneLocal.id,
+        siteId: site.id,
+        status: faker.helpers.arrayElement([
+          Status.NON_PROGRAMMEE,
+          Status.PROGRAMMEE,
+          Status.PDR_PRET,
+          Status.ATTENTE_PDR,
+          Status.EXECUTE,
+        ]),
+        date_execution: faker.date.soon({ days: 30 }),
+        equipe_execution: faker.person.fullName(),
+        obs: faker.lorem.sentence(3),
+      },
+    });
+
+    anomalies.push(anomalie);
+
+    // Crée 1 à 3 BesoinPdr pour chaque anomalie
+    const nbBesoin = faker.number.int({ min: 1, max: 3 });
+    for (let j = 0; j < nbBesoin; j++) {
+      await prisma.besoinPdr.create({
+        data: {
+          ref: `BS-${faker.string.alphanumeric(6).toUpperCase()}`,
+          code: faker.string.alphanumeric(4).toUpperCase(),
+          no_bs: faker.string.numeric(5),
+          besoin_status: faker.helpers.arrayElement([
+            'ATTENTE_BS',
+            'BS_FAIT',
+            'PDR_SORTIE',
+            'EN_DA',
+            'EN_COMMANDE',
+            'SANS_RESSOURCE',
+            'NON_SUIVI_APPRO',
+          ]) as BesoinStatus,
+          obs: faker.lorem.sentence(2),
+          anomalie_id: anomalie.id,
+        },
+      });
+    }
+  }
+
+  console.log(
+    `📌 ${anomalies.length} anomalies créées avec leurs besoins PDR.`,
+  );
   console.log('✅ Seeding terminé avec succès.');
 }
 

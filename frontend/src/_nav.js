@@ -1,7 +1,7 @@
 // src/_nav.js
 import { useTranslation } from 'react-i18next'
 import CIcon from '@coreui/icons-react'
-import { cilSpeedometer, cilStar } from '@coreui/icons'
+import { cilListRich, cilSpeedometer, cilStar } from '@coreui/icons'
 import { CNavGroup, CNavItem } from '@coreui/react'
 
 const useNav = () => {
@@ -32,16 +32,15 @@ const useNav = () => {
     //   name: 'Components',
     // },
 
-    // {
-    //   component: CNavGroup,
-    //   name: 'Icons',
-    //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    //   items: [
-    //     { component: CNavItem, name: 'CoreUI Free', to: '/icons/coreui-icons' },
-    //     { component: CNavItem, name: 'CoreUI Flags', to: '/icons/flags' },
-    //     { component: CNavItem, name: 'CoreUI Brands', to: '/icons/brands' },
-    //   ],
-    // },
+    {
+      component: CNavGroup,
+      name: 'Icons',
+      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      items: [
+        { component: CNavItem, name: 'Dashboard Backlog', to: '/backlog_dashboard' },
+        { component: CNavItem, name: 'Backlog', to: '/backlog' },
+      ],
+    },
 
     // {
     //   component: CNavTitle,

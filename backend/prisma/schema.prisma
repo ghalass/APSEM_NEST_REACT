@@ -128,6 +128,7 @@ model Engin {
   Site      Site        @relation(fields: [siteId], references: [id], onDelete: Restrict)
   Saisiehrm Saisiehrm[]
   Saisiehim Saisiehim[]
+  Anomalie  Anomalie[]
 
   @@map("engin")
 }
@@ -301,42 +302,51 @@ enum Status {
   EXECUTE
 }
 
+enum BesoinStatus {
+  ATTENTE_BS
+  BS_FAIT
+  PDR_SORTIE
+  EN_DA
+  EN_COMMANDE
+  SANS_RESSOURCE
+  NON_SUIVI_APPRO
+}
+
 // ==============================
-// MODELES
+// ANOMALIE
 // ==============================
 
 model Anomalie {
-  id               String   @id @default(uuid())
+  id               String    @id @default(uuid())
+  enginId          String
+  typepanneId      String
+  siteId           String
   date_anomalie    DateTime
   description      String
   source           Source
   urgence          Urgence
   equipe_execution String? // optionnel
   obs              String? // optionnel
-  typepanneId      String
-  siteId           String
+  status           Status    @default(NON_PROGRAMMEE)
+  date_execution   DateTime?
 
-  // Relation avec Site
-  site Site @relation(fields: [siteId], references: [id])
-
-  // Relation avec TypePanne
-  typepanne Typepanne @relation(fields: [typepanneId], references: [id])
-
-  // Relation avec BesoinPdr
+  // Relations
+  site       Site        @relation(fields: [siteId], references: [id])
+  engin      Engin       @relation(fields: [enginId], references: [id])
+  typepanne  Typepanne   @relation(fields: [typepanneId], references: [id])
   besoin_pdr BesoinPdr[]
 
   @@unique([date_anomalie, description])
 }
 
 model BesoinPdr {
-  id             String   @id @default(uuid())
-  ref            String
-  code           String?
-  no_bs          String?
-  status         Status
-  date_execution DateTime
-  obs            String?
-  anomalie_id    String
+  id            String       @id @default(uuid())
+  ref           String
+  code          String?
+  no_bs         String?
+  besoin_status BesoinStatus @default(ATTENTE_BS)
+  obs           String?
+  anomalie_id   String
 
   // Relation avec Anomalie
   anomalie Anomalie @relation(fields: [anomalie_id], references: [id])

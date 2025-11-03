@@ -1,12 +1,11 @@
 import {
-  IsDateString,
   IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUUID,
 } from 'class-validator';
-import { Status } from '@prisma/client';
+import { BesoinStatus } from '@prisma/client';
 
 export class CreateBesoinPdrDto {
   @IsString()
@@ -21,13 +20,9 @@ export class CreateBesoinPdrDto {
   @IsOptional()
   no_bs?: string;
 
-  @IsEnum(Status)
+  @IsEnum(BesoinStatus)
   @IsNotEmpty()
-  status: Status;
-
-  @IsDateString()
-  @IsNotEmpty()
-  date_execution: Date;
+  besoin_status: BesoinStatus;
 
   @IsString()
   @IsOptional()

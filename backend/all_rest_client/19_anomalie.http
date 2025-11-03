@@ -1,0 +1,56 @@
+@baseUrl =http://localhost:3000
+@endpoint=anomalie
+@api={{baseUrl}}/{{endpoint}}
+
+### GET ALL
+GET {{api}}
+
+### FIND ONE
+@idFindOne=110f9553-3a34-4c22-a8b4-3dcedc5b687d
+GET {{api}}/{{idFindOne}}
+
+### CREATE
+POST {{api}}
+Content-Type: application/json
+
+{
+    "date_anomalie":"2025-11-03",
+    "description":"anomalie 1",
+    "source":"VJ",
+    "urgence":"TRES_ELEVEE",
+    "equipe_execution":"921",
+    "obs":"observation",
+    "typepanne_id":"490f0b6a-42d1-4462-bdd9-3a020a4384c7",
+    "site_id":"86078b82-19ec-4b85-b5ea-6f0c7dc64758",
+    "status":"NON_PROGRAMMEE",
+    "date_execution":"2025-11-05"
+}
+
+### UPDATE
+@idUpdate=110f9553-3a34-4c22-a8b4-3dcedc5b687d
+PATCH {{api}}/{{idUpdate}}
+Content-Type: application/json
+
+{
+    "site_id":"86078b82-19ec-4b85-b5ea-6f0c7dc64758",
+    "date_anomalie":"2025-11-03",
+    "description":"anomalie 1",
+    "typepanne_id":"490f0b6a-42d1-4462-bdd9-3a020a4384c7",
+    "source":"INSPECTION",
+    "urgence":"TRES_ELEVEE",
+    "equipe_execution":"921",
+    "obs":"observation"
+}
+
+
+
+### formatted
+GET {{api}}/formatted
+
+### backlog dashboard
+GET {{api}}/backlog_dashboard
+
+
+### DELETE
+@idDelete=4c2ef5e0-862a-434d-9a01-bac0997a08c7
+DELETE {{api}}/{{idDelete}}

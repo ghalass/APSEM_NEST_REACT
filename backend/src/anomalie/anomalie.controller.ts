@@ -11,7 +11,7 @@ import { AnomalieService } from './anomalie.service';
 import { CreateAnomalieDto } from './dto/create-anomalie.dto';
 import { UpdateAnomalieDto } from './dto/update-anomalie.dto';
 
-@Controller('anomalies')
+@Controller('anomalie')
 export class AnomalieController {
   constructor(private readonly anomalieService: AnomalieService) {}
 
@@ -25,8 +25,22 @@ export class AnomalieController {
     return this.anomalieService.findAll();
   }
 
+  @Get('formatted')
+  async getFormattedAnomalies() {
+    console.log('formatted');
+
+    return this.anomalieService.getAnomaliesFormatted();
+  }
+
+  @Get('/backlog_dashboard')
+  async getBacklogDashboard() {
+    return this.anomalieService.getBacklogDashboardStats();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
+    console.log('iii');
+
     return this.anomalieService.findOne(id);
   }
 

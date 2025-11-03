@@ -14,8 +14,7 @@ export class BesoinPdrService {
         ref: dto.ref,
         code: dto.code,
         no_bs: dto.no_bs,
-        status: dto.status,
-        date_execution: dto.date_execution,
+        besoin_status: dto.besoin_status,
         obs: dto.obs,
         anomalie: { connect: { id: dto.anomalie_id } }, // ✅ Relation connectée
       },
@@ -28,7 +27,6 @@ export class BesoinPdrService {
   async findAll() {
     return this.prisma.besoinPdr.findMany({
       include: { anomalie: true },
-      orderBy: { date_execution: 'desc' },
     });
   }
 
@@ -48,8 +46,7 @@ export class BesoinPdrService {
         ref: dto.ref,
         code: dto.code,
         no_bs: dto.no_bs,
-        status: dto.status,
-        date_execution: dto.date_execution,
+        besoin_status: dto.besoin_status,
         obs: dto.obs,
         anomalie: { connect: { id: anomalieId } },
       },
@@ -74,8 +71,7 @@ export class BesoinPdrService {
         ref: dto.ref,
         code: dto.code,
         no_bs: dto.no_bs,
-        status: dto.status,
-        date_execution: dto.date_execution,
+        besoin_status: dto.besoin_status,
         obs: dto.obs,
         anomalie: dto.anomalie_id
           ? { connect: { id: dto.anomalie_id } }

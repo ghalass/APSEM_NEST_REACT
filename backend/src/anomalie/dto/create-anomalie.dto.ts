@@ -6,13 +6,20 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { Type } from 'class-transformer';
-import { Source, Urgence } from '@prisma/client';
+import { Source, Status, Urgence } from '@prisma/client';
 
 export class CreateAnomalieDto {
   @IsUUID()
   @IsNotEmpty()
-  site_id: string;
+  siteId: string; // correspond à siteId dans le modèle
+
+  @IsUUID()
+  @IsNotEmpty()
+  enginId: string; // correspond à enginId dans le modèle
+
+  @IsUUID()
+  @IsNotEmpty()
+  typepanneId: string; // correspond à typepanneId dans le modèle
 
   @IsDateString()
   @IsNotEmpty()
@@ -21,10 +28,6 @@ export class CreateAnomalieDto {
   @IsString()
   @IsNotEmpty()
   description: string;
-
-  @IsUUID()
-  @IsNotEmpty()
-  typepanne_id: string;
 
   @IsEnum(Source)
   @IsNotEmpty()
@@ -37,6 +40,14 @@ export class CreateAnomalieDto {
   @IsString()
   @IsOptional()
   equipe_execution?: string;
+
+  @IsEnum(Status)
+  @IsNotEmpty()
+  status: Status;
+
+  @IsDateString()
+  @IsOptional() // peut être null dans la base si pas encore exécutée
+  date_execution?: Date;
 
   @IsString()
   @IsOptional()
