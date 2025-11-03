@@ -9,8 +9,8 @@ npx prisma init
 npm install @prisma/client
 
 supprimer le fichier prisma.config.ts
-npx prisma migrate dev --name init
 npx prisma generate
+npx prisma migrate dev --name init
 
 nest g mo auth
 nest g co auth --no-spec

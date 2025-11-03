@@ -21,9 +21,11 @@ import { LubrifiantModule } from './lubrifiant/lubrifiant.module';
 import { SaisielubrifiantModule } from './saisielubrifiant/saisielubrifiant.module';
 import { ObjectifModule } from './objectif/objectif.module';
 import { RapportModule } from './rapport/rapport.module';
+import { AnomalieModule } from './anomalie/anomalie.module';
+import { BesoinPdrModule } from './besoin_pdr/besoin_pdr.module';
 
 @Module({
-  imports: [UserModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }), SiteModule, TypeparcModule, ParcModule, TypeconsommationlubModule, TypeconsommationlubParcModule, LubrifiantParcModule, EnginModule, TypepanneModule, TypepanneParcModule, PanneModule, SaisiehrmModule, SaisiehimModule, TypelubrifiantModule, LubrifiantModule, SaisielubrifiantModule, ObjectifModule, RapportModule],
+  imports: [UserModule, AuthModule, ConfigModule.forRoot({ isGlobal: true }), SiteModule, TypeparcModule, ParcModule, TypeconsommationlubModule, TypeconsommationlubParcModule, LubrifiantParcModule, EnginModule, TypepanneModule, TypepanneParcModule, PanneModule, SaisiehrmModule, SaisiehimModule, TypelubrifiantModule, LubrifiantModule, SaisielubrifiantModule, ObjectifModule, RapportModule, AnomalieModule, BesoinPdrModule],
   controllers: [AppController],
   providers: [AppService],
 })

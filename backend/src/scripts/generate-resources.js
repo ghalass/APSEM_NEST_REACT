@@ -18,11 +18,13 @@ const resources = [
   'saisielubrifiant',
   'objectif',
   'rapport',
+  'anomalie',
+  'besoin_pdr',
 ];
 
 resources.forEach((r) => {
   console.log(`✨ Génération de la ressource: ${r}`);
-  execSync(`nest g resource ${r}`, { stdio: 'inherit' }); // interactif obligatoire
+  execSync(`nest g resource ${r} --no-spec`, { stdio: 'inherit' }); // interactif obligatoire
 });
 
 console.log('✅ Génération terminée !');

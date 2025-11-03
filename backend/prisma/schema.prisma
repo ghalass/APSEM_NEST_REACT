@@ -41,6 +41,7 @@ model Site {
   engins    Engin[]
   Saisiehrm Saisiehrm[]
   Objectif  Objectif[]
+  Anomalie  Anomalie[]
 
   @@map("site")
 }
@@ -140,6 +141,7 @@ model Typepanne {
 
   pannes        Panne[]
   TypepanneParc TypepanneParc[]
+  Anomalie      Anomalie[]
 
   @@map("typepanne")
 }
@@ -273,4 +275,71 @@ model Objectif {
 
   @@unique([annee, parcId, siteId])
   @@map("objectif")
+}
+
+// ==============================
+// ENUMS
+// ==============================
+enum Urgence {
+  TRES_ELEVEE
+  ELEVEE
+  MOYENNE
+  FAIBLE
+}
+
+enum Source {
+  VS
+  VJ
+  INSPECTION
+}
+
+enum Status {
+  NON_PROGRAMMEE
+  PROGRAMMEE
+  PDR_PRET
+  ATTENTE_PDR
+  EXECUTE
+}
+
+// ==============================
+// MODELES
+// ==============================
+
+model Anomalie {
+  id               String   @id @default(uuid())
+  date_anomalie    DateTime
+  description      String
+  source           Source
+  urgence          Urgence
+  equipe_execution String? // optionnel
+  obs              String? // optionnel
+  typepanneId      String
+  siteId           String
+
+  // Relation avec Site
+  site Site @relation(fields: [siteId], references: [id])
+
+  // Relation avec TypePanne
+  typepanne Typepanne @relation(fields: [typepanneId], references: [id])
+
+  // Relation avec BesoinPdr
+  besoin_pdr BesoinPdr[]
+
+  @@unique([date_anomalie, description])
+}
+
+model BesoinPdr {
+  id             String   @id @default(uuid())
+  ref            String
+  code           String?
+  no_bs          String?
+  status         Status
+  date_execution DateTime
+  obs            String?
+  anomalie_id    String
+
+  // Relation avec Anomalie
+  anomalie Anomalie @relation(fields: [anomalie_id], references: [id])
+
+  @@unique([ref, anomalie_id])
 }
