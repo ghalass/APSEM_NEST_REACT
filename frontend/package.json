@@ -1,7 +1,7 @@
 {
-  "name": "SCHOOL APP",
+  "name": "APSEM",
   "version": "1.0.0",
-  "description": "SCHOOL APP",
+  "description": "APSEM",
   "homepage": ".",
   "license": "PRIVATE",
   "author": "GHALASS",
@@ -24,6 +24,7 @@
     "@tanstack/react-table": "^8.21.3",
     "axios": "^1.12.2",
     "chart.js": "^4.5.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "classnames": "^2.5.1",
     "core-js": "^3.45.0",
     "date-fns": "^4.1.0",

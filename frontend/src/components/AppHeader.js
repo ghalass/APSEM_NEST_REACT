@@ -61,7 +61,7 @@ const AppHeader = () => {
 
         <CHeaderNav>
           {/* LANG */}
-          <ChangeLang />
+          {/* <ChangeLang /> */}
 
           {/* SEPARATOR */}
           <li className="nav-item py-1">

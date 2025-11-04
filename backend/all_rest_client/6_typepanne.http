@@ -15,7 +15,7 @@ POST {{api}}
 Content-Type: application/json
 
 {
-    "name":"test"
+    "name":"SOUDURE"
 }
 
 ### UPDATE

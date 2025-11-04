@@ -70,7 +70,7 @@ const Login = () => {
         <CRow className="justify-content-center">
           <CCol md={8}>
             <CHeaderNav className="d-flex align-items-center justify-content-between gap-3 mx-5">
-              <ChangeLang />
+              {/* <ChangeLang /> */}
               <ChangeTheme />
             </CHeaderNav>
           </CCol>

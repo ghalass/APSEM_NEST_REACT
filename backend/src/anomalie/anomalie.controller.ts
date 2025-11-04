@@ -27,8 +27,6 @@ export class AnomalieController {
 
   @Get('formatted')
   async getFormattedAnomalies() {
-    console.log('formatted');
-
     return this.anomalieService.getAnomaliesFormatted();
   }
 

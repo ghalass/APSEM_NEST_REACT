@@ -1,7 +1,7 @@
 // src/_nav.js
 import { useTranslation } from 'react-i18next'
 import CIcon from '@coreui/icons-react'
-import { cilListRich, cilSpeedometer, cilStar } from '@coreui/icons'
+import { cilEqualizer, cilListRich, cilSpeedometer, cilStar, cilWarning } from '@coreui/icons'
 import { CNavGroup, CNavItem } from '@coreui/react'
 
 const useNav = () => {
@@ -34,8 +34,8 @@ const useNav = () => {
 
     {
       component: CNavGroup,
-      name: 'Icons',
-      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      name: 'Suivi Backlog',
+      icon: <CIcon icon={cilWarning} customClassName="nav-icon" />,
       items: [
         { component: CNavItem, name: 'Dashboard Backlog', to: '/backlog_dashboard' },
         { component: CNavItem, name: 'Backlog', to: '/backlog' },
@@ -49,7 +49,7 @@ const useNav = () => {
     {
       component: CNavGroup,
       name: t('sideBar.settings'),
-      icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+      icon: <CIcon icon={cilEqualizer} customClassName="nav-icon" />,
       items: [{ component: CNavItem, name: t('sideBar.users'), to: '/users' }],
     },
   ]

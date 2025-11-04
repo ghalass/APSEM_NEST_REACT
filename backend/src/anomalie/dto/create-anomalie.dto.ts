@@ -23,7 +23,7 @@ export class CreateAnomalieDto {
 
   @IsDateString()
   @IsNotEmpty()
-  date_anomalie: Date;
+  date_anomalie: string;
 
   @IsString()
   @IsNotEmpty()
@@ -45,9 +45,8 @@ export class CreateAnomalieDto {
   @IsNotEmpty()
   status: Status;
 
-  @IsDateString()
   @IsOptional() // peut être null dans la base si pas encore exécutée
-  date_execution?: Date;
+  date_execution?: string | null;
 
   @IsString()
   @IsOptional()

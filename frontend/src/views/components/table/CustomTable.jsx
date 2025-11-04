@@ -1,8 +1,14 @@
+// ============================================================================
+// 🔹 src/views/components/table/CustomTable.jsx
+// Description : Tableau réutilisable basé sur TanStack React Table + CoreUI.
+// Objectif : améliorer la responsivité, supprimer les retours à la ligne,
+//             et garder un UI/UX propre et homogène.
+// ============================================================================
+
 import React from 'react'
 import {
   CButton,
   CFormInput,
-  CNavLink,
   CTable,
   CTableBody,
   CTableDataCell,
@@ -11,13 +17,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import {
-  cilPenNib,
-  cilSortAlphaDown,
-  cilSortAlphaUp,
-  cilTrash,
-  cilCloudDownload,
-} from '@coreui/icons'
+import { cilSortAlphaDown, cilSortAlphaUp, cilCloudDownload } from '@coreui/icons'
 import {
   flexRender,
   getCoreRowModel,
@@ -28,13 +28,15 @@ import {
 } from '@tanstack/react-table'
 import * as XLSX from 'xlsx'
 import { saveAs } from 'file-saver'
-
 import ColumnFilter from './ColumnFilter'
 import CustomTablePagination from './CustomTablePagination'
 import { DEFAULT_PER_PAGE } from '../../../utils/constantes'
 import { NavLink } from 'react-router-dom'
 
-const CustomTable = ({ data, columns }) => {
+// ============================================================================
+// 🔸 Composant principal : CustomTable
+// ============================================================================
+const CustomTable = ({ data, columns, url = 'users' }) => {
   const [globalFilter, setGlobalFilter] = React.useState('')
   const [columnFilters, setColumnFilters] = React.useState([])
   const [pagination, setPagination] = React.useState({
@@ -42,6 +44,7 @@ const CustomTable = ({ data, columns }) => {
     pageSize: DEFAULT_PER_PAGE,
   })
 
+  // 🔹 Initialisation du tableau avec TanStack
   const table = useReactTable({
     data,
     columns,
@@ -57,7 +60,9 @@ const CustomTable = ({ data, columns }) => {
       String(row.getValue(columnId)).toLowerCase().includes(String(filterValue).toLowerCase()),
   })
 
-  // 🔽 Export visible data to Excel
+  // ========================================================================
+  // 📦 Export des données visibles en fichier Excel (.xlsx)
+  // ========================================================================
   const handleExportXLSX = () => {
     const rows = table.getRowModel().rows.map((row) => {
       const obj = {}
@@ -77,10 +82,16 @@ const CustomTable = ({ data, columns }) => {
     saveAs(blob, `export_${new Date().toISOString().slice(0, 10)}.xlsx`)
   }
 
+  // ========================================================================
+  // 🎨 Style et comportement responsive
+  //  - Pas de retour à la ligne (white-space: nowrap)
+  //  - Colonnes auto-ajustées à leur contenu (width: auto)
+  //  - Scroll horizontal doux si dépassement
+  // ========================================================================
   return (
-    <div className="">
+    <div className="w-100">
       {/* 🔍 Barre de recherche + Export */}
-      <div className="mb-2 d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div className="mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
         <CFormInput
           type="search"
           placeholder="Rechercher..."
@@ -95,59 +106,93 @@ const CustomTable = ({ data, columns }) => {
         </CButton>
       </div>
 
-      {/* Pagination */}
+      {/* 🔽 Pagination au-dessus pour accès rapide */}
       <CustomTablePagination table={table} />
 
-      {/* Table */}
-      <CTable responsive="md" striped hover small>
-        <CTableHead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <CTableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <CTableHeaderCell key={header.id}>
-                  {!header.isPlaceholder && (
-                    <>
-                      <div
-                        className={`d-flex align-items-center gap-1 ${
-                          header.column.getCanSort() ? 'cursor-pointer select-none' : ''
-                        }`}
-                        onClick={header.column.getToggleSortingHandler()}
-                      >
-                        {flexRender(header.column.columnDef.header, header.getContext())}
-                        {{
-                          asc: <CIcon icon={cilSortAlphaDown} className="ms-1 text-success" />,
-                          desc: <CIcon icon={cilSortAlphaUp} className="ms-1 text-primary" />,
-                        }[header.column.getIsSorted()] ?? null}
-                      </div>
-                      {header.column.getCanFilter() && (
-                        <ColumnFilter column={header.column} table={table} />
-                      )}
-                    </>
-                  )}
-                </CTableHeaderCell>
-              ))}
-            </CTableRow>
-          ))}
-        </CTableHead>
-
-        <CTableBody>
-          {table.getRowModel().rows.map((row) => (
-            <CTableRow key={row.id}>
-              {/* Données */}
-              {row.getVisibleCells().map((cell) => (
-                <CTableDataCell key={cell.id} className="align-middle">
-                  <NavLink
-                    to={`/users/${row.original.id}`}
-                    className="nav-link text-decoration-none p-0"
+      {/* 🧩 Table principale */}
+      <div
+        className="table-responsive"
+        style={{
+          overflowX: 'auto',
+          whiteSpace: 'nowrap', // ✅ empêche le retour à la ligne
+          scrollbarWidth: 'thin',
+        }}
+      >
+        <CTable hover striped small bordered align="middle">
+          {/* En-têtes */}
+          <CTableHead className="align-middle">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <CTableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <CTableHeaderCell
+                    key={header.id}
+                    style={{
+                      verticalAlign: 'middle',
+                      whiteSpace: 'nowrap',
+                      width: 'auto', // ✅ largeur auto
+                      cursor: header.column.getCanSort() ? 'pointer' : 'default',
+                    }}
+                    className="text-nowrap"
+                    onClick={header.column.getToggleSortingHandler()}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </NavLink>
-                </CTableDataCell>
-              ))}
-            </CTableRow>
-          ))}
-        </CTableBody>
-      </CTable>
+                    {!header.isPlaceholder && (
+                      <>
+                        <div className="d-flex align-items-center justify-content-between gap-1">
+                          {/* 🔹 Nom de la colonne */}
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+
+                          {/* 🔹 Icônes de tri */}
+                          {{
+                            asc: <CIcon icon={cilSortAlphaDown} className="text-success" />,
+                            desc: <CIcon icon={cilSortAlphaUp} className="text-primary" />,
+                          }[header.column.getIsSorted()] ?? null}
+                        </div>
+
+                        {/* 🔹 Filtres de colonnes si disponibles */}
+                        {header.column.getCanFilter() && (
+                          <ColumnFilter column={header.column} table={table} />
+                        )}
+                      </>
+                    )}
+                  </CTableHeaderCell>
+                ))}
+              </CTableRow>
+            ))}
+          </CTableHead>
+
+          {/* Corps du tableau */}
+          <CTableBody>
+            {table.getRowModel().rows.map((row) => (
+              <CTableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <CTableDataCell
+                    key={cell.id}
+                    className="align-middle text-nowrap" // ✅ empêche les retours à la ligne
+                    style={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '250px', // ✅ limite visuelle sans casser le layout
+                    }}
+                  >
+                    <NavLink
+                      to={`/${url}/${row.original.id}`}
+                      className="nav-link text-decoration-none p-0"
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </NavLink>
+                  </CTableDataCell>
+                ))}
+              </CTableRow>
+            ))}
+          </CTableBody>
+        </CTable>
+      </div>
+
+      {/* 🔽 Pagination bas */}
+      <div className="mt-2">
+        <CustomTablePagination table={table} />
+      </div>
     </div>
   )
 }

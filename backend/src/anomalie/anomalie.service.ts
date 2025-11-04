@@ -28,14 +28,16 @@ export class AnomalieService {
     });
     if (!typepanne) throw new NotFoundException('Type de panne non trouvé');
 
-    return this.prisma.anomalie.create({
+    const createdAnomalie = await this.prisma.anomalie.create({
       data: {
-        date_anomalie: dto.date_anomalie,
+        date_anomalie: new Date(dto.date_anomalie),
         description: dto.description,
         source: dto.source,
         urgence: dto.urgence,
         status: dto.status,
-        date_execution: dto.date_execution,
+        date_execution: dto.date_execution
+          ? new Date(dto.date_execution)
+          : null,
         equipe_execution: dto.equipe_execution,
         obs: dto.obs,
         // Relations
@@ -44,6 +46,7 @@ export class AnomalieService {
         typepanne: { connect: { id: typepanne.id } },
       },
     });
+    return createdAnomalie;
   }
 
   // === UPDATE ===
@@ -104,43 +107,63 @@ export class AnomalieService {
   }
 
   async getAnomaliesFormatted() {
-    const anomalies = await this.prisma.anomalie.findMany({
-      include: {
-        engin: true,
-        site: true,
-        typepanne: true,
-        besoin_pdr: true,
-      },
-      orderBy: {
-        date_anomalie: 'desc',
-      },
+    const anomalies = await this.findAll();
+
+    // Transformer chaque anomalie en tableau (avec ou sans besoin_pdr)
+    const formattedArrays = anomalies.map((a) => {
+      if (a.besoin_pdr.length > 0) {
+        // Si l'anomalie a des besoins PDR, on map dessus
+        return a.besoin_pdr.map((b) => ({
+          id: a.id,
+          date_anomalie: new Date(a.date_anomalie).toLocaleDateString('fr-FR'),
+          engin: a.engin.name,
+          description: a.description,
+          source: a.source,
+          urgence: a.urgence,
+          equipe_execution: a.equipe_execution,
+          obs_anomalie: a.obs,
+          type_panne: a.typepanne.name,
+          site: a.site.name,
+          status: a.status,
+          date_execution: a.date_execution
+            ? new Date(a.date_execution).toLocaleDateString('fr-FR')
+            : null,
+          ref_bs: b.ref,
+          code_bs: b.code,
+          no_bs: b.no_bs,
+          besoin_status: b.besoin_status,
+          obs_bs: b.obs,
+        }));
+      }
+
+      // Si pas de besoin_pdr, retourner un tableau avec une seule entrée (PDR null)
+      return [
+        {
+          id: a.id,
+          date_anomalie: new Date(a.date_anomalie).toLocaleDateString('fr-FR'),
+          engin: a.engin.name,
+          description: a.description,
+          source: a.source,
+          urgence: a.urgence,
+          equipe_execution: a.equipe_execution,
+          obs_anomalie: a.obs,
+          type_panne: a.typepanne.name,
+          site: a.site.name,
+          status: a.status,
+          date_execution: a.date_execution
+            ? new Date(a.date_execution).toLocaleDateString('fr-FR')
+            : null,
+          ref_bs: null,
+          code_bs: null,
+          no_bs: null,
+          besoin_status: null,
+          obs_bs: null,
+        },
+      ];
     });
 
-    // Transformer le format
-    const formatted = anomalies.flatMap((a) =>
-      a.besoin_pdr.map((b) => ({
-        date_anomalie: new Date(a.date_anomalie).toLocaleDateString('fr-FR'),
-        engin: a.engin.name,
-        description: a.description,
-        source: a.source,
-        urgence: a.urgence,
-        equipe_execution: a.equipe_execution,
-        obs_anomalie: a.obs,
-        type_panne: a.typepanne.name,
-        site: a.site.name,
-        status: a.status,
-        date_execution: a.date_execution
-          ? new Date(a.date_execution).toLocaleDateString('fr-FR')
-          : null,
-        ref_bs: b.ref,
-        code_bs: b.code,
-        no_bs: b.no_bs,
-        besoin_status: b.besoin_status,
-        obs_bs: b.obs,
-      })),
-    );
-
-    return formatted;
+    // Aplatir tous les tableaux en un seul tableau
+    return formattedArrays.flat();
   }
 
   async getBacklogDashboardStats() {
