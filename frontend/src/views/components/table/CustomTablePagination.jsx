@@ -78,6 +78,8 @@ const CustomTablePagination = ({ table }) => {
               onChange={(e) => table.setPageSize(Number(e.target.value))}
               style={{ width: '100px' }}
             >
+              <option value="">Affficher tout</option>
+              <option value="">--------------</option>
               {getMultiplesOf(table.getRowCount(), DEFAULT_PER_PAGE).map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
                   {pageSize} / page

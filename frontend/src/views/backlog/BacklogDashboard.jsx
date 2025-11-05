@@ -518,7 +518,7 @@ export default function BacklogDashboardPage() {
                     Total Anomalies: {data.totalAnomalies}
                   </p>
                   <p style={{ ...styles.statText, color: themeColors.textColor }}>
-                    Moyenne Temps Exécution : {data.moyenneTempsExecution.toFixed(0)} jours{' '}
+                    Moyenne Temps Exécution : {data.moyenneTempsExecution.toFixed(0)} jours{' ou '}
                     {(data.moyenneTempsExecution * 24).toFixed(0)} heures
                   </p>
                 </div>
