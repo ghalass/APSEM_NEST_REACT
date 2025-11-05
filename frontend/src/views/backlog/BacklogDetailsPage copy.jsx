@@ -292,12 +292,8 @@ const BacklogDetailsPage = () => {
                 </CBadge>
               </p>
               <p>
-                <strong>Date d'exécution :</strong>
-                {backlog.date_execution ? (
-                  new Date(backlog.date_execution).toLocaleDateString('fr-FR')
-                ) : (
-                  <span className="text-danger"> Non Exécutée</span>
-                )}
+                <strong>Date d'exécution :</strong>{' '}
+                {new Date(backlog.date_execution).toLocaleDateString('fr-FR')}
               </p>
               <p></p>
               {backlog.equipe_execution && (

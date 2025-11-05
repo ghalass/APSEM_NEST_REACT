@@ -172,7 +172,7 @@ const UserDetailsPage = () => {
                 </CBadge>
               </p>
               <p>
-                <strong>Créé le :</strong> {new Date(user.createdAt).toLocaleString()}
+                <strong>Créé le :</strong> {new Date(user.createdAt).toLocaleDateString('fr-FR')}
               </p>
             </CCardBody>
           </CCard>

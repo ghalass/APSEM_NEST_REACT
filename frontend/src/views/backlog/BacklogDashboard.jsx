@@ -475,8 +475,8 @@ export default function BacklogDashboardPage() {
           <CRow sm={{ cols: 1 }} md={{ cols: 2 }} lg={{ cols: 3 }}>
             {showCharts && (
               <>
-                {table.getRowModel().rows.map((row) => (
-                  <CCol>
+                {table.getRowModel().rows.map((row, index) => (
+                  <CCol key={index}>
                     <LineDoughnutChartCard
                       key={row.id}
                       row={row.original}

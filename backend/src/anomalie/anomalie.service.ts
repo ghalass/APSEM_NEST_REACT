@@ -51,6 +51,18 @@ export class AnomalieService {
 
   // === UPDATE ===
   async update(id: string, dto: UpdateAnomalieDto) {
+    console.log(dto);
+    if (dto.date_execution === '') {
+      dto.date_execution = '';
+    } else {
+      if (dto.date_execution != undefined) {
+        const d = new Date(dto.date_execution);
+        dto.date_execution = d.toString();
+      }
+    }
+
+    console.log(dto);
+
     // Vérifier que l'anomalie existe
     const anomalie = await this.prisma.anomalie.findUnique({
       where: { id },
@@ -60,12 +72,17 @@ export class AnomalieService {
     return this.prisma.anomalie.update({
       where: { id },
       data: {
-        date_anomalie: dto.date_anomalie,
+        // 🔹 Vérifier existence avant conversion en Date
+        date_anomalie: dto.date_anomalie
+          ? new Date(dto.date_anomalie)
+          : undefined,
         description: dto.description,
         source: dto.source,
         urgence: dto.urgence,
         status: dto.status,
-        date_execution: dto.date_execution,
+        date_execution: dto.date_execution
+          ? new Date(dto.date_execution)
+          : undefined,
         equipe_execution: dto.equipe_execution,
         obs: dto.obs,
         // Relations mises à jour uniquement si fournies
